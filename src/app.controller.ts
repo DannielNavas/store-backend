@@ -7,6 +7,15 @@ export class AppController {
 
   @Get()
   getHello(): string {
-    return this.appService.getHello();
+    return 'Hola Mundo!';
+  }
+  @Get('new')
+  newEndpoint() {
+    return 'Yo soy nuevo!';
+  }
+  //TODO: Nestjs resuelve la ruta con '/' o sin '/' al final
+  @Get('/ruta/')
+  hello() {
+    return 'con /sas/';
   }
 }
