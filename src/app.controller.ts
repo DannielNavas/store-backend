@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -20,15 +20,15 @@ export class AppController {
   }
   //TODO: se debe crear el enspoint con plurales tareas -> tasks personas -> people
   // PARAMS
-  @Get('products/:id')
-  getProduct(@Param('id') id: string) {
-    return `Product ${id}`;
-  }
+  // @Get('products/:id')
+  // getProduct(@Param('id') id: string) {
+  //   return `Product ${id}`;
+  // }
 
-  @Get('categories/:id/products/:productId')
-  getCategory(@Param('id') id: string, @Param('productId') productId: string) {
-    return `Category ${id}, Product ${productId}`;
-  }
+  // @Get('categories/:id/products/:productId')
+  // getCategory(@Param('id') id: string, @Param('productId') productId: string) {
+  //   return `Category ${id}, Product ${productId}`;
+  // }
 
   // QUERY PARAMS
 
@@ -38,17 +38,17 @@ export class AppController {
   //   return `Products: Limit => ${limit}, Offset => ${offset}`;
   // }
   // TODO: no importa el orden de los parametros
-  @Get('products')
-  getProducts(
-    @Query('limit') limit = 100,
-    @Query('offset') offset = 0,
-    @Query('brand') brand: string,
-  ) {
-    return `Products: Limit => ${limit}, Offset => ${offset} Brand => ${brand}`;
-  }
+  // @Get('products')
+  // getProducts(
+  //   @Query('limit') limit = 100,
+  //   @Query('offset') offset = 0,
+  //   @Query('brand') brand: string,
+  // ) {
+  //   return `Products: Limit => ${limit}, Offset => ${offset} Brand => ${brand}`;
+  // }
   // TODO: toma el filter como un parametro products/:id se organiza no dinamicas primeras y dinamicas despues
-  @Get('products/filter')
-  getProductFilter() {
-    return `Yo soy un filter`;
-  }
+  // @Get('products/filter')
+  // getProductFilter() {
+  //   return `Yo soy un filter`;
+  // }
 }
