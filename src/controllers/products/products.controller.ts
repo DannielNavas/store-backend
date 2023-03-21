@@ -3,11 +3,15 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Post,
   Put,
   Query,
+  Res,
 } from '@nestjs/common';
+import { Response } from 'express';
 
 @Controller('products')
 export class ProductsController {
@@ -31,8 +35,10 @@ export class ProductsController {
   //TODO: se debe crear el enspoint con plurales tareas -> tasks personas -> people
   // PARAMS
   @Get('/:id')
-  getProduct(@Param('id') id: string) {
-    return `Product ${id}`;
+  @HttpCode(HttpStatus.ACCEPTED)
+  getProduct(@Res() response: Response, @Param('id') id: string) {
+    // return response.status(201).json({ message: `Product ${id}` });
+    return { message: `Product ${id}` };
   }
 
   @Post()
