@@ -6,6 +6,7 @@ import {
   HttpCode,
   HttpStatus,
   Param,
+  ParseIntPipe,
   Post,
   Put,
   Query,
@@ -38,7 +39,7 @@ export class ProductsController {
   // PARAMS
   @Get('/:id')
   @HttpCode(HttpStatus.ACCEPTED)
-  getProduct(@Param('id') id: string) {
+  getProduct(@Param('id', ParseIntPipe) id: number) {
     // TODO:  Nest nos permite usar el response de expresspero si lo indicamos siempre espera que nosotros hagamos el response, de lo contrario nest se encarga de la respuesta
     // @Res() response: Response,
     // return response.status(201).json({ message: `Product ${id}` });
@@ -60,16 +61,16 @@ export class ProductsController {
   //TODO: PUT edita completamente y PATCH edita parcialmente
 
   @Put('/:id')
-  update(@Param('id') id: string, @Body() payload: any) {
+  update(@Param('id', ParseIntPipe) id: number, @Body() payload: any) {
     // return {
     //   message: `action update ${id}`,
     //   payload,
     // };
     return this.productsService.update(id, payload);
   }
-
+  //TODO: los pipes ayudan a validar y tranformar a un number o el tipo de dato necesario
   @Delete('/:id')
-  delete(@Param('id') id: string) {
+  delete(@Param('id', ParseIntPipe) id: number) {
     // return {
     //   message: `action delete ${id}`,
     // };

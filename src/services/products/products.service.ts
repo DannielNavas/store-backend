@@ -6,7 +6,7 @@ export class ProductsService {
   private counterId = 2;
   private products: Product[] = [
     {
-      id: '1',
+      id: 1,
       name: 'Product One',
       description: 'Description of product one',
       price: 100,
@@ -16,7 +16,7 @@ export class ProductsService {
       stock: 100,
     },
     {
-      id: '2',
+      id: 2,
       name: 'Product Two',
       description: 'Description of product two',
       price: 200,
@@ -31,7 +31,7 @@ export class ProductsService {
     return this.products;
   }
 
-  findOne(id: string) {
+  findOne(id: number) {
     const product = this.products.find((item) => item.id === id);
     if (!product) {
       // TODO: manejo de errores el throw new error es 500
@@ -45,7 +45,7 @@ export class ProductsService {
   create(payload: Product) {
     this.counterId = this.counterId + 1;
     const newProduct = {
-      id: String(this.counterId),
+      id: this.counterId,
       createAt: new Date(),
       updateAt: new Date(),
       ...payload,
@@ -54,7 +54,7 @@ export class ProductsService {
     return newProduct.id;
   }
 
-  update(id: string, payload: any) {
+  update(id: number, payload: any) {
     const product = this.findOne(id);
     if (product) {
       const index = this.products.findIndex((item) => item.id === id);
@@ -66,7 +66,7 @@ export class ProductsService {
     }
   }
 
-  delete(id: string) {
+  delete(id: number) {
     const product = this.products.find((item) => item.id === id);
     if (!product) {
       // TODO: manejo de errores el throw new error es 500
