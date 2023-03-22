@@ -39,6 +39,7 @@ export class ProductsController {
   @Get('/:id')
   @HttpCode(HttpStatus.ACCEPTED)
   getProduct(@Param('id') id: string) {
+    // TODO:  Nest nos permite usar el response de expresspero si lo indicamos siempre espera que nosotros hagamos el response, de lo contrario nest se encarga de la respuesta
     // @Res() response: Response,
     // return response.status(201).json({ message: `Product ${id}` });
     // return { message: `Product ${id}` };

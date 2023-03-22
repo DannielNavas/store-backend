@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Product } from 'src/models/products.model';
 
 @Injectable()
@@ -32,7 +32,14 @@ export class ProductsService {
   }
 
   findOne(id: string) {
-    return this.products.find((item) => item.id === id);
+    const product = this.products.find((item) => item.id === id);
+    if (!product) {
+      // TODO: manejo de errores el throw new error es 500
+      // throw new Error(`Product ${id} not found`);
+      // TODO: manejo de errores el throw new NotFoundException es 404
+      throw new NotFoundException(`Product ${id} not found`);
+    }
+    return product;
   }
 
   create(payload: Product) {
@@ -60,6 +67,13 @@ export class ProductsService {
   }
 
   delete(id: string) {
+    const product = this.products.find((item) => item.id === id);
+    if (!product) {
+      // TODO: manejo de errores el throw new error es 500
+      // throw new Error(`Product ${id} not found`);
+      // TODO: manejo de errores el throw new NotFoundException es 404
+      throw new NotFoundException(`Product ${id} not found`);
+    }
     return this.products.filter((item) => item.id !== id);
   }
 }
