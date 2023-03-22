@@ -39,6 +39,8 @@ export class ProductsService {
     this.counterId = this.counterId + 1;
     const newProduct = {
       id: String(this.counterId),
+      createAt: new Date(),
+      updateAt: new Date(),
       ...payload,
     };
     this.products.push(newProduct);
@@ -46,9 +48,13 @@ export class ProductsService {
   }
 
   update(id: string, payload: any) {
-    const index = this.products.findIndex((item) => item.id === id);
-    if (index !== -1) {
-      this.products[index] = payload;
+    const product = this.findOne(id);
+    if (product) {
+      const index = this.products.findIndex((item) => item.id === id);
+      this.products[index] = {
+        ...product,
+        ...payload,
+      };
       return this.products[index];
     }
   }
