@@ -9,3 +9,13 @@ export interface Product {
   createAt: Date;
   updateAt: Date;
 }
+// TODO: cambiar esto como entity
+
+// export class Product {
+//   id: number;
+//   name: string;
+//   description: string;
+//   price: number;
+//   stock: number;
+//   image: string;
+// }
