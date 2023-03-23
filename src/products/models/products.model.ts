@@ -9,7 +9,7 @@ export interface Product {
   createAt: Date;
   updateAt: Date;
 }
-// TODO: cambiar esto como entity
+// TODO: cambiar esto como entity, los entity y los dtos se manejan por aparte y no se deben mezclar
 
 // export class Product {
 //   id: number;

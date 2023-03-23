@@ -12,7 +12,8 @@ import {
   Query,
 } from '@nestjs/common';
 import { ParseIntPipe } from 'src/common/parse-int/parse-int.pipe';
-import { ProductsService } from 'src/services/products/products.service';
+import { ProductsService } from 'src/products/services/products/products.service';
+
 import { CreateProductDto, UpdateProductDto } from '../dtos/products.dto';
 
 @Controller('products')
@@ -79,6 +80,6 @@ export class ProductsController {
     // return {
     //   message: `action delete ${id}`,
     // };
-    return this.productsService.delete(id);
+    return this.productsService.delete(+id);
   }
 }
