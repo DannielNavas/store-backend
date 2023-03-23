@@ -1,3 +1,4 @@
+// TODO: esto funciona en tiempo de desarrollo pero en produccion no (respetar el tipado)
 export interface Product {
   id?: number;
   name: string;

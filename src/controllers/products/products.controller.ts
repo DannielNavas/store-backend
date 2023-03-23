@@ -13,6 +13,7 @@ import {
 } from '@nestjs/common';
 import { ParseIntPipe } from 'src/common/parse-int/parse-int.pipe';
 import { ProductsService } from 'src/services/products/products.service';
+import { CreateProductDto, UpdateProductDto } from '../dtos/products.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -47,11 +48,11 @@ export class ProductsController {
     // return { message: `Product ${id}` };
     console.log('--'.repeat(20));
     console.log(id);
-    return this.productsService.findOne(id);
+    return this.productsService.findOne(+id);
   }
 
   @Post()
-  create(@Body() payload: any) {
+  create(@Body() payload: CreateProductDto) {
     // return {
     //   message: 'action create',
     //   payload,
@@ -62,7 +63,10 @@ export class ProductsController {
   //TODO: PUT edita completamente y PATCH edita parcialmente
 
   @Put('/:id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() payload: any) {
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: UpdateProductDto,
+  ) {
     // return {
     //   message: `action update ${id}`,
     //   payload,
