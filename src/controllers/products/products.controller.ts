@@ -71,7 +71,7 @@ export class ProductsController {
     //   message: `action update ${id}`,
     //   payload,
     // };
-    return this.productsService.update(id, payload);
+    return this.productsService.update(+id, payload);
   }
   //TODO: los pipes ayudan a validar y tranformar a un number o el tipo de dato necesario
   @Delete('/:id')

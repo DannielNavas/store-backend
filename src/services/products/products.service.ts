@@ -63,6 +63,7 @@ export class ProductsService {
     if (product) {
       const index = this.products.findIndex((item) => item.id === id);
       this.products[index] = {
+        updateAt: new Date(),
         ...product,
         ...payload,
       };
