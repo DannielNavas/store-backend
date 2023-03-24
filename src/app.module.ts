@@ -18,6 +18,8 @@ const API_KEY_PROD = 'PROD123456';
       provide: 'API_KEY',
       useValue: process.env.NODE_ENV === 'prod' ? API_KEY_PROD : API_KEY,
     },
+    // TODO: detiene la ejecucion de la API hasta que se resuelva la peticion
+    // TODO: se puede usar para conexion a base de datos ejemplo mongo que solicita una peticion asincrona
     {
       provide: 'TASK',
       useFactory: async (http: HttpService) => {
