@@ -1,4 +1,6 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { ConfigType } from '@nestjs/config';
+import config from 'src/config';
 
 import { ProductsService } from 'src/products/services/products.service';
 import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
@@ -17,9 +19,19 @@ export class UsersService {
     },
   ];
 
-  constructor(private productsService: ProductsService) {}
+  constructor(
+    private productsService: ProductsService,
+    // private configServices: ConfigService,
+    @Inject(config.KEY) private configService: ConfigType<typeof config>,
+  ) {}
 
   findAll() {
+    // const apiKey = this.configServices.get<string>(config);
+    // const databaseName = this.configServices.get('DATABASE_NAME');
+    const apiKey = this.configService.apiKey;
+    const databaseName = this.configService.database.name;
+    console.log(apiKey);
+    console.log(databaseName);
     return this.users;
   }
 
