@@ -30,3 +30,5 @@ const API_KEY_PROD = 'PROD123456';
   exports: ['API_KEY', 'TASK'],
 })
 export class DatabaseModule {}
+
+// TODO: se instancia en todos los modulos sin necesidad de hacer el import
