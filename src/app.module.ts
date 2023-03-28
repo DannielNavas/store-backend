@@ -3,7 +3,6 @@ import * as Joi from 'joi';
 
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { MongoClient } from 'mongodb';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import config from './config';
@@ -12,19 +11,19 @@ import { environments } from './environments';
 import { ProductsModule } from './products/products.module';
 import { UsersModule } from './users/users.module';
 
-const uri =
-  'mongodb://root:root@localhost:27017/?authSource=admin&readPreference=primary';
+// const uri =
+//   'mongodb://root:root@localhost:27017/?authSource=admin&readPreference=primary';
 
-const client = new MongoClient(uri);
-async function run() {
-  await client.connect();
-  const database = client.db('store');
-  const taskColection = database.collection('tasks');
-  const tasks = await taskColection.find().toArray();
-  console.log(tasks);
-}
+// const client = new MongoClient(uri);
+// async function run() {
+//   await client.connect();
+//   const database = client.db('store');
+//   const taskColection = database.collection('tasks');
+//   const tasks = await taskColection.find().toArray();
+//   console.log(tasks);
+// }
 
-run();
+// run();
 
 @Module({
   imports: [
