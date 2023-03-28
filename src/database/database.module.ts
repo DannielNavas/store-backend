@@ -1,6 +1,9 @@
 import { HttpModule, HttpService } from '@nestjs/axios';
 import { Global, Module } from '@nestjs/common';
+import { ConfigType } from '@nestjs/config';
+import { MongoClient } from 'mongodb';
 import { lastValueFrom } from 'rxjs';
+import config from 'src/config';
 
 const API_KEY = '123456';
 const API_KEY_PROD = 'PROD123456';
@@ -26,8 +29,24 @@ const API_KEY_PROD = 'PROD123456';
       },
       inject: [HttpService],
     },
+    // TODO: conexion a base de datos mongo
+    // TODO: sigue el patron de singleton
+    {
+      provide: 'MONGO',
+      useFactory: async (configService: ConfigType<typeof config>) => {
+        const { connection, user, password, host, port, dbName } =
+          configService.mongo;
+        const uri = `${connection}://${user}:${password}@${host}:${port}/?authSource=admin&readPreference=primary`;
+
+        const client = new MongoClient(uri);
+        await client.connect();
+        const database = client.db(dbName);
+        return database;
+      },
+      inject: [config.KEY],
+    },
   ],
-  exports: ['API_KEY', 'TASK'],
+  exports: ['API_KEY', 'TASK', 'MONGO'],
 })
 export class DatabaseModule {}
 

@@ -51,4 +51,9 @@ export class AppController {
   // getProductFilter() {
   //   return `Yo soy un filter`;
   // }
+
+  @Get('tasks')
+  getTasks() {
+    return this.appService.getTask();
+  }
 }
