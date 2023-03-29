@@ -1,12 +1,17 @@
 import {
+  Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
   Param,
+  Post,
+  Put,
   Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { CreateProductDto, UpdateProductDto } from '../dtos/products.dto';
 
 import { ProductsService } from '../services/products.service';
 
@@ -48,34 +53,31 @@ export class ProductsController {
     return this.productsService.findOne(id);
   }
 
-  // @Post()
-  // create(@Body() payload: CreateProductDto) {
-  //   // return {
-  //   //   message: 'action create',
-  //   //   payload,
-  //   // };
-  //   return this.productsService.create(payload);
-  // }
+  @Post()
+  create(@Body() payload: CreateProductDto) {
+    // return {
+    //   message: 'action create',
+    //   payload,
+    // };
+    return this.productsService.create(payload);
+  }
 
   // //TODO: PUT edita completamente y PATCH edita parcialmente
 
-  // @Put('/:id')
-  // update(
-  //   @Param('id', ParseIntPipe) id: number,
-  //   @Body() payload: UpdateProductDto,
-  // ) {
-  //   // return {
-  //   //   message: `action update ${id}`,
-  //   //   payload,
-  //   // };
-  //   return this.productsService.update(+id, payload);
-  // }
+  @Put('/:id')
+  update(@Param('id') id: string, @Body() payload: UpdateProductDto) {
+    // return {
+    //   message: `action update ${id}`,
+    //   payload,
+    // };
+    return this.productsService.update(id, payload);
+  }
   // //TODO: los pipes ayudan a validar y tranformar a un number o el tipo de dato necesario
-  // @Delete('/:id')
-  // delete(@Param('id', ParseIntPipe) id: number) {
-  //   // return {
-  //   //   message: `action delete ${id}`,
-  //   // };
-  //   return this.productsService.delete(+id);
-  // }
+  @Delete('/:id')
+  delete(@Param('id') id: string) {
+    // return {
+    //   message: `action delete ${id}`,
+    // };
+    return this.productsService.delete(id);
+  }
 }
