@@ -7,23 +7,17 @@ export class ProductsService {
   private counterId = 2;
   private products: Product[] = [
     {
-      id: 1,
       name: 'Product One',
       description: 'Description of product one',
       price: 100,
       image: '',
-      createAt: new Date(),
-      updateAt: new Date(),
       stock: 100,
     },
     {
-      id: 2,
       name: 'Product Two',
       description: 'Description of product two',
       price: 200,
       image: '',
-      createAt: new Date(),
-      updateAt: new Date(),
       stock: 100,
     },
   ];
@@ -46,9 +40,6 @@ export class ProductsService {
   create(payload: CreateProductDto) {
     this.counterId = this.counterId + 1;
     const newProduct = {
-      id: this.counterId,
-      createAt: new Date(),
-      updateAt: new Date(),
       ...payload,
     };
     this.products.push(newProduct);
@@ -60,7 +51,6 @@ export class ProductsService {
     if (product) {
       const index = this.products.findIndex((item) => item.id === id);
       this.products[index] = {
-        updateAt: new Date(),
         ...product,
         ...payload,
       };
