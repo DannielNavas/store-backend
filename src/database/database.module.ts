@@ -1,6 +1,7 @@
 import { HttpModule, HttpService } from '@nestjs/axios';
 import { Global, Module } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
 import { MongoClient } from 'mongodb';
 import { lastValueFrom } from 'rxjs';
 import config from 'src/config';
@@ -11,7 +12,28 @@ const API_KEY_PROD = 'PROD123456';
 // TODO: el Global se usa para dejar las cosas generales para toda la aplicacion
 @Global()
 @Module({
-  imports: [HttpModule],
+  imports: [
+    HttpModule,
+    // MongooseModule.forRoot('mongodb://localhost:27017', {
+    //   user: 'root',
+    //   pass: 'root',
+    //   dbName: 'store',
+    // }),
+    MongooseModule.forRootAsync({
+      useFactory: async (configService: ConfigType<typeof config>) => {
+        const { connection, user, password, host, port, dbName } =
+          configService.mongo;
+        const uri = `${connection}://${host}:${port}`;
+        return {
+          uri,
+          user,
+          pass: password,
+          dbName,
+        };
+      },
+      inject: [config.KEY],
+    }),
+  ],
   providers: [
     // TODO: forma de inyectar una constante en el modulo
     {
@@ -46,7 +68,7 @@ const API_KEY_PROD = 'PROD123456';
       inject: [config.KEY],
     },
   ],
-  exports: ['API_KEY', 'TASK', 'MONGO'],
+  exports: ['API_KEY', 'TASK', 'MONGO', MongooseModule],
 })
 export class DatabaseModule {}
 
