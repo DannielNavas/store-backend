@@ -4,7 +4,6 @@ import config from 'src/config';
 
 import { ProductsService } from 'src/products/services/products.service';
 import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
-import { Order } from '../entities/order.entity';
 import { User } from '../entities/user.entity';
 
 @Injectable()
@@ -72,12 +71,12 @@ export class UsersService {
     return true;
   }
 
-  getOrderByUSer(idUser: number): Order {
+  async getOrderByUSer(idUser: number) {
     const user = this.findOne(idUser);
     return {
       date: new Date(),
       user,
-      products: this.productsService.findAll(),
+      products: await this.productsService.findAll(),
     };
   }
 }
