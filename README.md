@@ -157,3 +157,8 @@ delete(@Param('id') id: string) {
 return this.productsService.remove(+id);
 }
 Contribución creada por: Kevin Fiorentino.
+
+## Tener en cuenta
+
+relacion uno a uno embebida el objeto se encuentra en el mismo documento, se utiliza para los que no crezcan mucho
+relacion uno a uno referenciadas se guarda el id y se popula para que traiga el objeto completo
