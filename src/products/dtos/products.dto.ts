@@ -30,6 +30,12 @@ export class CreateProductDto {
   @IsPositive()
   @ApiProperty({ description: 'The stock of the Product.' })
   readonly stock: number;
+
+  // @ValidateNested() //Import class-validator
+  // @ApiProperty({ description: 'The category of the Product.' })
+  // @IsUrl()
+  // IsNotEmpty()
+  // readonly category: CreateCategoryDto;
 }
 
 export class UpdateProductDto extends PartialType(CreateProductDto) {}

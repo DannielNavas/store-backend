@@ -11,7 +11,7 @@
 // }
 // TODO: cambiar esto como entity, los entity y los dtos se manejan por aparte y no se deben mezclar
 
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 @Schema()
@@ -27,6 +27,15 @@ export class Product extends Document {
   stock: number;
   @Prop()
   image: string;
+
+  // TODO: relacion de uno a uno
+  @Prop(
+    raw({
+      name: { type: String, required: true },
+      image: { type: String, required: true },
+    }),
+  )
+  category: Record<string, any>;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
