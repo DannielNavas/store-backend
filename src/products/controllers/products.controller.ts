@@ -13,6 +13,7 @@ import {
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateProductDto, UpdateProductDto } from '../dtos/products.dto';
 
+import { MongoIdPipe } from '../../common/mongo-id/mongo-id.pipe';
 import { ProductsService } from '../services/products.service';
 
 @ApiTags('products')
@@ -43,7 +44,7 @@ export class ProductsController {
   // PARAMS
   @Get('/:id')
   @HttpCode(HttpStatus.ACCEPTED)
-  getProduct(@Param('id') id: string) {
+  getProduct(@Param('id', MongoIdPipe) id: string) {
     // TODO:  Nest nos permite usar el response de expresspero si lo indicamos siempre espera que nosotros hagamos el response, de lo contrario nest se encarga de la respuesta
     // @Res() response: Response,
     // return response.status(201).json({ message: `Product ${id}` });
@@ -65,7 +66,10 @@ export class ProductsController {
   // //TODO: PUT edita completamente y PATCH edita parcialmente
 
   @Put('/:id')
-  update(@Param('id') id: string, @Body() payload: UpdateProductDto) {
+  update(
+    @Param('id', MongoIdPipe) id: string,
+    @Body() payload: UpdateProductDto,
+  ) {
     // return {
     //   message: `action update ${id}`,
     //   payload,
@@ -74,7 +78,7 @@ export class ProductsController {
   }
   // //TODO: los pipes ayudan a validar y tranformar a un number o el tipo de dato necesario
   @Delete('/:id')
-  delete(@Param('id') id: string) {
+  delete(@Param('id', MongoIdPipe) id: string) {
     // return {
     //   message: `action delete ${id}`,
     // };
