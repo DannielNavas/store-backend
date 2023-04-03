@@ -11,7 +11,11 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CreateProductDto, UpdateProductDto } from '../dtos/products.dto';
+import {
+  CreateProductDto,
+  FilterProductsDto,
+  UpdateProductDto,
+} from '../dtos/products.dto';
 
 import { MongoIdPipe } from '../../common/mongo-id/mongo-id.pipe';
 import { ProductsService } from '../services/products.service';
@@ -23,15 +27,11 @@ export class ProductsController {
 
   @Get('')
   @ApiOperation({ summary: 'List of products' })
-  getProducts(
-    @Query('limit') limit = 100,
-    @Query('offset') offset = 0,
-    @Query('brand') brand: string,
-  ) {
+  getProducts(@Query() params: FilterProductsDto) {
     // return {
     //   message: `Products limit: ${limit} offset: ${offset} brand: ${brand}`,
     // };
-    return this.productsService.findAll();
+    return this.productsService.findAll(params);
   }
 
   // TODO: toma el filter como un parametro products/:id se organiza no dinamicas primeras y dinamicas despues
