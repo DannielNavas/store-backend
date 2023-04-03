@@ -20,7 +20,8 @@ export class Product extends Document {
   name: string;
   @Prop()
   description: string;
-  @Prop({ type: Number, required: true })
+  // TODO: si todo es prioritario al final nada lo es (no es necesario poner index: true a todos los campos)
+  @Prop({ type: Number, required: true, index: true })
   price: number;
   @Prop({ type: Number, required: true })
   stock: number;
@@ -29,3 +30,5 @@ export class Product extends Document {
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
+// TODO: esto es para crear un indice compuesto, y la forma de ordenar es con 1 y -1 (1 es ascendente y -1 es descendente)
+ProductSchema.index({ price: 1, stock: -1 });
