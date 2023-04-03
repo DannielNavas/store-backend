@@ -16,7 +16,7 @@ import { Document } from 'mongoose';
 
 @Schema()
 export class Product extends Document {
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   name: string;
   @Prop()
   description: string;
@@ -36,6 +36,14 @@ export class Product extends Document {
     }),
   )
   category: Record<string, any>;
+
+  // TODO: relacion de uno a uno
+  // TODO: Brand  hace referencia a un entity que se quiere relacionar, el type.ObjectId es de tipo id de mongodb
+  // @Prop({
+  //   type: Types.ObjectId,
+  //   ref: Brand.name,
+  // })
+  // brand: Brand | Types.ObjectId;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);

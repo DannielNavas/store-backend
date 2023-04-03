@@ -36,6 +36,11 @@ export class CreateProductDto {
   // @IsUrl()
   // IsNotEmpty()
   // readonly category: CreateCategoryDto;
+
+  // TODO: se debe llamar igual que el atributo del entity
+  // @IsMongoId() //Import class-validator
+  // @IsNotEmpty()
+  // readonly brand: string;
 }
 
 export class UpdateProductDto extends PartialType(CreateProductDto) {}

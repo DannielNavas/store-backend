@@ -24,8 +24,11 @@ export class ProductsService {
         // TODO: lte es menor e igual
         filters.price = { $gte: minPrice, $lte: maxPrice };
       }
+      // return this.productModel.find(filters).populate('brand').skip(offset).limit(limit).exec();
       return this.productModel.find(filters).skip(offset).limit(limit).exec();
     }
+    // TODO: populate es para traer los datos de la relacion, hace un join hacia la coleccion de brand y trae el objeto completo
+    // return this.productModel.find().populate('brand').exec();
     return this.productModel.find().exec();
   }
 
