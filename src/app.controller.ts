@@ -1,14 +1,25 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
+import { Public } from './auth/decorators/public.decorator';
+import { ApiKeyGuard } from './auth/guards/api-key/api-key.guard';
 
+//TODO: se protege todo el controlador
+@UseGuards(ApiKeyGuard)
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
+  // TODO: con SetMetadata  puedo dejar publico el endpoint
+  // @SetMetadata('isPublic', true)
+  // TODO: decorador personalizado
+  @Public()
   @Get()
   getHello(): string {
     return this.appService.getHello();
   }
+
+  // TODO: se protege unicamente este endpoint
+  // @UseGuards(ApiKeyGuard)
   @Get('new')
   newEndpoint() {
     return 'Yo soy nuevo!';

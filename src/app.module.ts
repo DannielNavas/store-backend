@@ -10,6 +10,7 @@ import { DatabaseModule } from './database/database.module';
 import { environments } from './environments';
 import { ProductsModule } from './products/products.module';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 // const uri =
 //   'mongodb://root:root@localhost:27017/?authSource=admin&readPreference=primary';
@@ -40,6 +41,7 @@ import { UsersModule } from './users/users.module';
         DATABASE_PORT: Joi.number().required(),
       }),
     }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
