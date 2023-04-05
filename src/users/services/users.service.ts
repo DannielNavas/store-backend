@@ -1,5 +1,6 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
+import * as bcrypt from 'bcrypt';
 import config from 'src/config';
 
 import { ProductsService } from 'src/products/services/products.service';
@@ -42,15 +43,25 @@ export class UsersService {
     return user;
   }
 
-  create(data: CreateUserDto) {
+  async create(data: CreateUserDto) {
     this.counterId = this.counterId + 1;
     const newUser = {
       id: this.counterId,
       ...data,
     };
+    const hashPassword = await bcrypt.hashSync(newUser.password, 10);
+    newUser.password = hashPassword;
     this.users.push(newUser);
+    // TODO: excluir password esto se hace con el modelo en mongo
+    // const model = await newModel.save();
+    // const { password, ...user } = model.toJSON();
+    // return user;
     return newUser;
   }
+
+  // findByEmail(email: string) {
+  //   return this.userModel.findOne({ email }).exec();
+  // }
 
   update(id: number, changes: UpdateUserDto) {
     const user = this.findOne(id);
