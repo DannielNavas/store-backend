@@ -63,6 +63,12 @@ export class UsersService {
   //   return this.userModel.findOne({ email }).exec();
   // }
 
+  findOneByEmail(email: string) {
+    const user = this.users.find((item) => item.email === email);
+
+    return user;
+  }
+
   update(id: number, changes: UpdateUserDto) {
     const user = this.findOne(id);
     const index = this.users.findIndex((item) => item.id === id);
