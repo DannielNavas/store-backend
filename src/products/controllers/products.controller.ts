@@ -18,17 +18,22 @@ import {
   UpdateProductDto,
 } from '../dtos/products.dto';
 
-import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
 import { MongoIdPipe } from '../../common/mongo-id/mongo-id.pipe';
 import { ProductsService } from '../services/products.service';
+import { Public } from './../../auth/decorators/public.decorator';
 
 @ApiTags('products')
 @Controller('products')
+// TODO: para cuando quiero proteger todos los endpoints de un controlador
+// @UseGuards(AuthGuard('jwt'))
+// TODO: para cuando quierop proteger los endpoints de un controlador pero cuento con una excepcion EJ: el decorador Public
+@UseGuards(JwtAuthGuard)
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Get('')
-  @UseGuards(AuthGuard('jwt'))
+  @Public()
   @ApiOperation({ summary: 'List of products' })
   getProducts(@Query() params: FilterProductsDto) {
     // return {
