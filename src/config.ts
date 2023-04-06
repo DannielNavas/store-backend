@@ -7,6 +7,7 @@ export default registerAs('config', () => ({
     name: process.env.DATABASE_NAME,
   },
   apiKey: process.env.API_KEY,
+  jwtSecret: process.env.JWT_SECRET,
   mongo: {
     dbName: process.env.MONGO_DB,
     user: process.env.MONGO_INITDB_ROOT_USERNAME,

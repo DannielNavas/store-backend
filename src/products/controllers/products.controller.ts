@@ -9,6 +9,7 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import {
@@ -17,6 +18,7 @@ import {
   UpdateProductDto,
 } from '../dtos/products.dto';
 
+import { AuthGuard } from '@nestjs/passport';
 import { MongoIdPipe } from '../../common/mongo-id/mongo-id.pipe';
 import { ProductsService } from '../services/products.service';
 
@@ -26,6 +28,7 @@ export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Get('')
+  @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: 'List of products' })
   getProducts(@Query() params: FilterProductsDto) {
     // return {
