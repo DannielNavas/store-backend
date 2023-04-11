@@ -18,7 +18,10 @@ import {
   UpdateProductDto,
 } from '../dtos/products.dto';
 
+import { Roles } from 'src/auth/decorators/roles.decorator';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
+import { RolesGuard } from 'src/auth/guards/roles/roles.guard';
+import { ERoles } from 'src/auth/models/roles.model';
 import { MongoIdPipe } from '../../common/mongo-id/mongo-id.pipe';
 import { ProductsService } from '../services/products.service';
 import { Public } from './../../auth/decorators/public.decorator';
@@ -28,7 +31,7 @@ import { Public } from './../../auth/decorators/public.decorator';
 // TODO: para cuando quiero proteger todos los endpoints de un controlador
 // @UseGuards(AuthGuard('jwt'))
 // TODO: para cuando quierop proteger los endpoints de un controlador pero cuento con una excepcion EJ: el decorador Public
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
@@ -62,6 +65,7 @@ export class ProductsController {
     return this.productsService.findOne(id);
   }
 
+  @Roles(ERoles.ADMIN)
   @Post()
   create(@Body() payload: CreateProductDto) {
     // return {
